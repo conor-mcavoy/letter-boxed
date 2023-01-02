@@ -14,8 +14,8 @@ all_words = words.words()
 
 # the 'score' of a word is simply the number of unique letters it has
 # this is the most valuable trait of a useful word in letter boxed
-def word_score(word_):
-    return len(set(word_))
+def word_score(*word_list):
+    return len(set(''.join(word_list)))
 
 
 # this map contains all known word scores, mapped to the words that have that score
@@ -33,7 +33,6 @@ def make_score_to_word_map(box):
 
 def find_solution(dict_word_score, points_left, starting_word):
     solution_list = []
-    letters_used = set(''.join(starting_word))
     first_letter = starting_word[0]
     last_letter = starting_word[-1]
 
@@ -44,10 +43,10 @@ def find_solution(dict_word_score, points_left, starting_word):
         for candidate_word in current_words:
             # has to start with the last letter or end with first letter
             if candidate_word[0] == last_letter:
-                if len(set(candidate_word) | letters_used) == 12:
+                if word_score(candidate_word, starting_word) == 12:
                     solution_list.append([starting_word, candidate_word])
             elif candidate_word[-1] == first_letter:
-                if len(set(candidate_word) | letters_used) == 12:
+                if word_score(candidate_word, starting_word) == 12:
                     solution_list.append([candidate_word, starting_word])
     return solution_list
 

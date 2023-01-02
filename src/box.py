@@ -6,12 +6,12 @@ class Box:
     def is_valid_word(self, word):
         if set(word) <= self.letter_set:
             for i in range(0, len(word) - 1):
-                if not self.are_in_diff_sides(word[i], word[i + 1]):
+                if not self.are_on_diff_sides(word[i], word[i + 1]):
                     return False
             return True
         return False
 
-    def are_in_diff_sides(self, letter1, letter2):
+    def are_on_diff_sides(self, letter1, letter2):
         for side in self.sides:
             if letter1 in side:
                 return letter2 not in side
